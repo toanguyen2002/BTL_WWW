@@ -2,9 +2,6 @@ package www.btl.Entity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -15,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -55,8 +51,6 @@ public class Product implements Serializable {
 
 	private String size;
 	private int soluong;
-	@OneToMany(mappedBy = "producid",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	public Set<OrderDetail> orderDetails;
 	public int getIdProduct() {
 		return idProduct;
 	}

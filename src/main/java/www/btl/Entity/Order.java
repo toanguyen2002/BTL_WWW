@@ -62,25 +62,9 @@ public class Order implements Serializable{
 	public void setOrderDate(LocalDate orderDate) {
 		this.orderDate = orderDate;
 	}
-	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Set<OrderDetail> getOrdetail() {
-		return ordetail;
-	}
-	public void setOrdetail(Set<OrderDetail> ordetail) {
-		this.ordetail = ordetail;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", orderDate=" + orderDate + ", user=" + user + ", ordetail=" + ordetail.toString() + "]";
+		return "Order [id=" + id + ", orderDate=" + orderDate + "]";
 	}
 	public Order( LocalDate orderDate, User user, Set<OrderDetail> ordetail) {
 		super();
