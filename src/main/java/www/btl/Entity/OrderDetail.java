@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,13 +20,16 @@ import www.btl.Entity.Order;
 @Table(name="order_items")
 public class OrderDetail implements Serializable{
 	private static final long serialVersionUID = 7793469511895300150L;
-
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int id;
+
+
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product producid;
 	
-	@Id
+	
 	@ManyToOne()
 	@JoinColumn(name="order_id")
 	private Order orderId;
@@ -34,6 +39,13 @@ public class OrderDetail implements Serializable{
 	@Column(nullable = true)
 	private double price;	
 	
+	public OrderDetail(Product producid, Order orderId, int quantity, double price) {
+		super();
+		this.producid = producid;
+		this.orderId = orderId;
+		this.quantity = quantity;
+		this.price = price;
+	}
 	public OrderDetail(Product producId, Order orderId, int quantity) {
 		super();
 		this.producid = producId;
@@ -61,12 +73,14 @@ public class OrderDetail implements Serializable{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	@Override
 	public String toString() {
-		return "OrderDetail [producid=" + producid + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", getProducId()=" + getProducId() + ", getOrderId()=" + getOrderId() + ", getQuantity()="
-				+ getQuantity() + "]";
+		return "OrderDetail [producid=" + producid +  ", quantity=" + quantity + ", price="
+				+ price + "]";
 	}
+	
+	
 	
 	
 	

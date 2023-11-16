@@ -2,20 +2,24 @@ package www.btl.DAO.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import www.btl.Entity.Order;
 import www.btn.DAO.OrderDao;
 
+@Repository
 public class OrderDaoimpl implements OrderDao{
 	@Autowired
 	public SessionFactory factory;
 
 	@Override
+	@Transactional
 	public void addOrder(Order order) {
-		// TODO Auto-generated method stub
-		
+		factory.getCurrentSession().saveOrUpdate(order);
 	}
 
 	@Override
