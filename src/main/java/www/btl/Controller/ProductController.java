@@ -27,12 +27,15 @@ import org.springframework.web.servlet.ModelAndView;
 import www.btl.Entity.Categories;
 import www.btl.Entity.OrderDetail;
 import www.btl.Entity.Product;
+import www.btn.DAO.CategoriesDao;
 import www.btn.DAO.ProductDao;
 
 @Controller
 public class ProductController {
 	@Autowired
 	public ProductDao productDao;
+	@Autowired
+	public CategoriesDao categoriesDao;
 
 	@RequestMapping("/danhsachsanpham")
 	public String getDanhSachSanPham(Model model, @RequestParam("num") int num, @RequestParam("gt") String gt,
@@ -100,10 +103,7 @@ public class ProductController {
 
 	@RequestMapping("/addForm")
 	public String goFormThemsp(Model modell, @Valid @ModelAttribute("product") Product product, BindingResult rs) {
-		List<Categories> ls = new ArrayList<Categories>();
-		ls.add(new Categories(1, "boy", null));
-		ls.add(new Categories(2, "girl", null));
-		ls.add(new Categories(3, "all", null));
+		List<Categories> ls = categoriesDao.getAllCategories();
 		modell.addAttribute("cate", ls);
 		return "them-san-pham";
 	}
@@ -170,6 +170,7 @@ public class ProductController {
 			fou.close();
 			arr.add(commonsMultipartFile.getOriginalFilename());
 		}
+		System.out.println(context.getRealPath("/WEB-INF/assets") + File.separator);
 		product.setCategories(new Categories(id));
 		product.setListImage(arr);
 		product.setInStock(true);

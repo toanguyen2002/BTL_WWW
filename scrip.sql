@@ -53,13 +53,19 @@ VALUES (15, 'img3.png');
 
 -- order_items
 
-INSERT INTO order_items (quantity, product_id, order_id)
-VALUES (2, 1, 1);
-INSERT INTO order_items (quantity, product_id, order_id)
-VALUES (1, 1, 2);
-INSERT INTO order_items (quantity, product_id, order_id)
-VALUES (1, 1, 3);
+INSERT INTO order_items 
+VALUES (200000, 5, 1,2);
+INSERT INTO order_items 
+VALUES (30000, 5, 1,1);
+INSERT INTO order_items 
+VALUES (400000, 5, 2,3);
+INSERT INTO order_items 
+VALUES (400000, 2, 3,3);
+INSERT INTO order_items 
+VALUES (400000, 3, 3,3);
 
+
+select * from order_items
 -- orders
 SET IDENTITY_INSERT orders ON;
 INSERT INTO orders (order_id, order_date, user_id)
@@ -113,3 +119,7 @@ VALUES (3, 123, 'admin', 'toan');
 INSERT INTO users (id, password, role, username)
 VALUES (4, 123, 'user', 'loc');
 SET IDENTITY_INSERT users OFF;
+
+SELECT * from orders
+
+SELECT * from order_items

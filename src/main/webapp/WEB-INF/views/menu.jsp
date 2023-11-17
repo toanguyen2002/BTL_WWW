@@ -92,6 +92,10 @@
 											href="/WWW_BTL/productController?num=0">Quản Lý Sản Phẩm</a></li>
 										<li><a class="dropdown-item"
 											href="/WWW_BTL/userController">Quản Lý User</a></li>
+											<li><a class="dropdown-item"
+												href="/WWW_BTL/categories/list">Quản Lý Danh Mục</a></li>
+												<li><a class="dropdown-item"
+												href="/WWW_BTL/order/orderController">Quản Lý Hóa đơn</a></li>
 										<li><a class="dropdown-item" href="#">Đăng xuất</a></li>
 									</ul>
 								</c:when>
@@ -99,9 +103,8 @@
 									<ul class="dropdown-menu" aria-labelledby="accountDropdown">
 										<li><a class="dropdown-item"
 											href="/WWW_BTL/productController">Thông Tin Cá Nhân</a></li>
-										<li><a class="dropdown-item"
-											href="/WWW_BTL/userController">Lịch Sử Mua Hàng</a></li>
-											<li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+										<li><a class="dropdown-item" href="/WWW_BTL/userController">Lịch Sử Mua Hàng</a></li>
+										<li><a class="dropdown-item" href="#">Đăng xuất</a></li>
 									</ul>
 								</c:otherwise>
 							</c:choose></li>

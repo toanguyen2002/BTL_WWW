@@ -36,7 +36,6 @@ public class OrderDetail implements Serializable{
 	
 	private int quantity;
 	
-	@Column(nullable = true)
 	private double price;	
 	
 	public OrderDetail(Product producid, Order orderId, int quantity, double price) {

@@ -84,25 +84,6 @@
 	<div class="container">
     <!-- Content above pagination goes here -->
     
-    <!-- Pagination -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="/WWW_BTL/trangchu?num=${numprd+1}">${numprd+1}</a></li>
-            <li class="page-item"><a class="page-link" href="/WWW_BTL/trangchu?num=${numprd+2}">${numprd+2}</a></li>
-            <li class="page-item"><a class="page-link" href="/WWW_BTL/trangchu?num=${numprd+3}">${numprd+3}</a></li>
-            <li class="page-item"><a class="page-link" href="/WWW_BTL/trangchu?num=${numprd+4}">${numprd+4}</a></li>
-            <!-- Add more page items as needed -->
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
     </nav>
     <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">

@@ -32,17 +32,20 @@
 			</thead>
 			
 			<tbody>
-				
+
 				<c:forEach items="${cart}" var="item" varStatus="loopStatus">
-				<tr><th scope="row">${item.getProduct().getNameProduct()}</th>
-					<td>${item.getProduct().getPrice()}</td>
-					<td><input type="number" value="${item.getSoluong()}" min="1"></td>
-					<td>${item.getProduct().getPrice() * item.getSoluong()}</td>
-					<td><a class="btn btn-danger" href="/WWW_BTL/cart/remove?id=${item.getProduct().getIdProduct()}">Xóa</a></td>
-					</tr></c:forEach>
-					
-			
-				
+					<tr>
+						<th scope="row">${item.getProduct().getNameProduct()}</th>
+						<td>${item.getProduct().getPrice()}</td>
+						<td><input type="number" value="${item.getSoluong()}" min="1"></td>
+						<td>${item.getProduct().getPrice() * item.getSoluong()}</td>
+						<td><a class="btn btn-danger"
+							href="/WWW_BTL/cart/remove?id=${item.getProduct().getIdProduct()}">Xóa</a></td>
+					</tr>
+				</c:forEach>
+
+
+
 				<!-- Thêm các sản phẩm khác ở đây -->
 			</tbody>
 		</table>
@@ -59,9 +62,12 @@
 		}  
 		out.println("<h4>Tổng Số Tiền Là: "+total+"</h4>");
 		%>
+		<c:if test="${loginFailed == false}">
+			<h1 style="color: red;font-weight: bold;">Bạn phải đăng Nhập Trước Khi Thanh Toán</h1>
+		</c:if>
 		<div class="text-right">
 			<h4>${total}</h4>
-			<button class="btn btn-primary">Thanh toán</button>
+			<a class="btn btn-primary"  href="/WWW_BTL/thanhtoan">Thanh toán</a>
 		</div>
 	</div>
 </body>

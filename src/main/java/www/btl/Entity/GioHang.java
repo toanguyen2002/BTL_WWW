@@ -1,6 +1,8 @@
 package www.btl.Entity;
 
-public class GioHang {
+import java.io.Serializable;
+
+public class GioHang implements Serializable{
 	public Product product;
 	public int soluong;
 	public double tonggia;

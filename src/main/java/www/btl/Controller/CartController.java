@@ -1,9 +1,12 @@
 package www.btl.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import www.btl.Entity.Order;
+import www.btl.Entity.OrderDetail;
 import www.btl.Entity.Product;
+import www.btl.Entity.User;
+import www.btn.DAO.OrderDao;
 import www.btn.DAO.ProductDao;
 
 @Controller
@@ -21,6 +28,8 @@ public class CartController {
 
 	@Autowired
 	ProductDao prodao;
+	@Autowired
+	OrderDao orderdao;
 	
 	@RequestMapping("/cart")
 	public String GioHang(Model model,HttpSession session) {
@@ -43,5 +52,27 @@ public class CartController {
 		
 		
 		return "redirect:/cart";
+	}
+	@RequestMapping("/thanhtoan")
+	public String thanhToanCart(Model model,HttpSession session) {
+		Set<OrderDetail> listod = new HashSet<OrderDetail>();
+		Order o =  new Order(LocalDate.now(), new User(1, null, null, null, null),null);
+		List<www.btl.Entity.GioHang> gioHnag = (List<www.btl.Entity.GioHang>) session.getAttribute("cart");
+		for (www.btl.Entity.GioHang h : gioHnag) {
+			Product p = prodao.getProductById(h.getProduct().getIdProduct());
+			OrderDetail oddt = new OrderDetail(p, o, h.getSoluong(),p.getPrice()*h.getSoluong());
+			listod.add(oddt);
+		}
+		o.setOrdetail(listod);
+		boolean loginFailed = (boolean) session.getAttribute("loginFailed");
+		System.out.println(loginFailed);
+		if (loginFailed == false) {
+			
+			return "redirect:/WWW_BTL/cart";
+		}
+		orderdao.addOrder(o);
+		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
+		list.clear();
+		return "redirect:/";
 	}
 }
