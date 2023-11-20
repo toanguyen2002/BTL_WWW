@@ -39,6 +39,7 @@
             <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
+                <th>Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -46,11 +47,15 @@
                 <tr>
                     <td>${order.id}</td>
                     <td>${order.orderDate}</td>
+                    <td>
+                    	<a href="/WWW_BTL/order/getByOrderID?id=${order.id}">xem chi tiết hóa đơn</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <a href="/WWW_BTL/order/getByUserID" class="btn btn-primary">Xem Order của user 1</a>
-    <a href="/WWW_BTL/order/getByID" class="btn btn-primary">Xem Order có id = 1</a>
+    	<%@include file="/WEB-INF/views/footer.jsp"%>
+<!--     <a href="/WWW_BTL/order/getByUserID" class="btn btn-primary">Xem Order của user 1</a>
+    <a href="/WWW_BTL/order/getByID" class="btn btn-primary">Xem Order có id = 1</a> -->
 </body>
 </html>

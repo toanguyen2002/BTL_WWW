@@ -32,8 +32,7 @@ public class Product implements Serializable {
 	private int idProduct;
 
 	@Column(columnDefinition = "nvarchar(50)")
-	@NotNull(message = "Không rỗng")
-	@Pattern(regexp = "[a-zA-Z0-9 ]+",message = "name Product không chưa kí tự đặt biệt")
+	@Pattern(regexp = "[A-Z][a-zA-Z0-9 ]+",message = "Tên sản phẩm không rỗng, không chứa kí tự đặt biệt, bắt đầu kí tự hoa")
 	private String nameProduct;
 
 	@ManyToOne
@@ -41,6 +40,7 @@ public class Product implements Serializable {
 	public Categories categories;
 
 	@Column(columnDefinition = "nvarchar(255)")
+	@NotNull(message = "mô tả sản phẩm không rỗng")
 	private String motasp;
 
 	@ElementCollection(fetch = FetchType.LAZY)
@@ -53,6 +53,7 @@ public class Product implements Serializable {
 
 	private boolean inStock;
 
+	@Pattern(regexp = "(XXL|XXXL|XL|L|M)",message = "Size không được là gì ngoài M,L,XL,XXL,XXXL")
 	private String size;
 	private int soluong;
 	@OneToMany(mappedBy = "producid",cascade = CascadeType.ALL,fetch = FetchType.EAGER)

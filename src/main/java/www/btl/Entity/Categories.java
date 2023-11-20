@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "categories")
@@ -22,6 +23,7 @@ public class Categories implements Serializable{
 	public int idCate;
 	
 	@Column(name = "name")
+	@Pattern(regexp = "[A-Za-z][A-Za-z ]*",message = "Tên danh mục không rỗng, không chứa số, kí tự đặt biệt")
 	public String namecategories;
 	
 	@OneToMany(mappedBy = "categories",fetch = FetchType.EAGER,cascade = CascadeType.ALL)

@@ -142,7 +142,7 @@ button:hover {
 			<button type="submit" class="btn btn-primary mt-5">update Sản Phẩm</button>
 		</form:form>
 	</div>
-
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 	<!-- Bootstrap JS and dependencies -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

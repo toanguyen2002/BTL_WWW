@@ -44,7 +44,13 @@
 							<h5 class="card-title">${sp.getNameProduct()}</h5>
 							<p class="card-text">${sp.getMotasp()}</p>
 							<a href="/WWW_BTL/product?id=${sp.getIdProduct()}"
-								class="btn btn-primary">Xem chi tiết</a> <a href="#" data-bs-toggle="modal" data-bs-target="#quantityModal" onclick="showQuantityModal('${sp.getIdProduct()}', '${sp.getNameProduct()}')" class="btn btn-primary">Thêm Giỏ hàng</a>
+								class="btn btn-primary">Xem chi tiết</a> 
+								<c:if test="${sp.isInStock() == true}">
+								<a href="#" data-bs-toggle="modal" data-bs-target="#quantityModal" onclick="showQuantityModal('${sp.getIdProduct()}', '${sp.getNameProduct()}')" class="btn btn-primary">Thêm Giỏ hàng</a>
+								</c:if>
+								<c:if test="${sp.isInStock() == false}">
+								<a href="#"  class="btn">Tạm Hết Hàng</a>
+								</c:if>
 						</div>
 					</div>
 				</div>
@@ -76,6 +82,7 @@
 			</a></li>
 		</ul>
 	</nav>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 	<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog"
 		aria-labelledby="quantityModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -105,5 +112,6 @@
 			</div>
 		</div>
 		<!-- Content below pagination goes here -->
+		
 </body>
 </html>

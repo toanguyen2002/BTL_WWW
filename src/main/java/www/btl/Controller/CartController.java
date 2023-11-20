@@ -30,11 +30,15 @@ public class CartController {
 	ProductDao prodao;
 	@Autowired
 	OrderDao orderdao;
-	
+
 	@RequestMapping("/cart")
-	public String GioHang(Model model,HttpSession session) {
+	public String GioHang(Model model, HttpSession session) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		List<www.btl.Entity.GioHang> gioHnag = new ArrayList<>();
+		if (list == null) {
+
+		}
+
 		list.entrySet().forEach(x -> {
 			Product p = prodao.getProductById(x.getKey());
 			gioHnag.add(new www.btl.Entity.GioHang(p, x.getValue(), 0));
@@ -42,37 +46,47 @@ public class CartController {
 		session.setAttribute("cart", gioHnag);
 		return "trang-gio-hang";
 	}
+
 	@RequestMapping("/cart/remove")
-	public String XoaGioHang(Model model,HttpSession session,@RequestParam("id") int id) {
+	public String XoaGioHang(Model model, HttpSession session, @RequestParam("id") int id) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		List<www.btl.Entity.GioHang> gioHnag = (List<www.btl.Entity.GioHang>) session.getAttribute("cart");
 		list.remove(id);
 		System.out.println(gioHnag.get(0).getProduct().getNameProduct());
 		session.setAttribute("cart", gioHnag);
-		
-		
+
 		return "redirect:/cart";
 	}
+
 	@RequestMapping("/thanhtoan")
-	public String thanhToanCart(Model model,HttpSession session) {
+	public String thanhToanCart(Model model, HttpSession session) {
 		Set<OrderDetail> listod = new HashSet<OrderDetail>();
-		Order o =  new Order(LocalDate.now(), new User(1, null, null, null, null),null);
+		int id = (int) session.getAttribute("userId");
+		System.out.println("id: " + id);
+		Order o = new Order(LocalDate.now(), new User(id, null, null, null, null, null, null), null);
 		List<www.btl.Entity.GioHang> gioHnag = (List<www.btl.Entity.GioHang>) session.getAttribute("cart");
+		boolean loginFailed = (boolean) session.getAttribute("loginFailed");
+		if (loginFailed == false) {
+
+			return "redirect:/cart";
+		}
 		for (www.btl.Entity.GioHang h : gioHnag) {
 			Product p = prodao.getProductById(h.getProduct().getIdProduct());
-			OrderDetail oddt = new OrderDetail(p, o, h.getSoluong(),p.getPrice()*h.getSoluong());
+			int soluongupdate = p.getSoluong() - h.getSoluong();
+			if (soluongupdate < 0) {
+				model.addAttribute("errquantity","Sản Phẩm " + p.getNameProduct() + " hiện chỉ còn  " + p.getSoluong());
+				return "trang-gio-hang";
+			}
+			p.setSoluong(soluongupdate);
+			prodao.update(p);
+			OrderDetail oddt = new OrderDetail(p, o, h.getSoluong(), p.getPrice() * h.getSoluong());
 			listod.add(oddt);
 		}
 		o.setOrdetail(listod);
-		boolean loginFailed = (boolean) session.getAttribute("loginFailed");
-		System.out.println(loginFailed);
-		if (loginFailed == false) {
-			
-			return "redirect:/WWW_BTL/cart";
-		}
+
 		orderdao.addOrder(o);
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		list.clear();
-		return "redirect:/";
+		return "redirect:/home";
 	}
 }

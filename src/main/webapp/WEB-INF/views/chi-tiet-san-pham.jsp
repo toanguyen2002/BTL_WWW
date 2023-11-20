@@ -42,7 +42,7 @@
 				<p>${product.motasp}</p>
 				<p>Giá Tiền: ${product.price}</p>
 				<p>Size: ${product.size}</p>
-				<p>1 Chút Thông Tin Về Sản Phẩm: ${product.motasp}</p>
+				<p>Tin Về Sản Phẩm: ${product.motasp}</p>
 				<c:if test="${product.inStock == true}">
 					<p style="color:green">Còn hàng</p>
 				</c:if>
@@ -53,5 +53,8 @@
 			</div>
 		</div>
 	</div>
+	<br>
+	<br>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

@@ -49,6 +49,8 @@
 				<!-- Thêm các sản phẩm khác ở đây -->
 			</tbody>
 		</table>
+		
+<h6 style="color: red;font-weight: bold;">${errquantity}</h6>
 		<%
 		double total = 0;
 		List<GioHang> ls = (List<GioHang>) session.getAttribute("cart");
@@ -65,10 +67,14 @@
 		<c:if test="${loginFailed == false}">
 			<h1 style="color: red;font-weight: bold;">Bạn phải đăng Nhập Trước Khi Thanh Toán</h1>
 		</c:if>
+	
+			
+	
 		<div class="text-right">
 			<h4>${total}</h4>
 			<a class="btn btn-primary"  href="/WWW_BTL/thanhtoan">Thanh toán</a>
 		</div>
 	</div>
+	
 </body>
 </html>

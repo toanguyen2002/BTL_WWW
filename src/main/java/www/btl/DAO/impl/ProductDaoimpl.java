@@ -136,4 +136,29 @@ public class ProductDaoimpl implements ProductDao {
 		return list;
 	}
 
+	@Override
+	@Transactional
+	public List<Product> getProductTheoNhieuTieuChi(String tieuchi) {
+		List<Product> list = new ArrayList<>();
+
+		NativeQuery<Object[]> query = (NativeQuery<Object[]>) factory.getCurrentSession().createNativeQuery(
+				"SELECT * FROM products WHERE\n"
+				+ " product_id LIKE '%"+tieuchi+"%' or\n"
+				+ "  motasp LIKE '%"+tieuchi+"%' or\n"
+				+ "  nameProduct LIKE '%"+tieuchi+"%'\n"
+				+ "  or price LIKE '%"+tieuchi+"%' or size  LIKE '%"+tieuchi+"%'");
+
+		for (Object[] o : query.getResultList()) {
+			List<String> listimg = new ArrayList<String>();
+			NativeQuery<Object[]> query1 = (NativeQuery<Object[]>) factory.getCurrentSession()
+					.createNativeQuery("SELECT * from list_images WHERE product_id = " + o[0]);
+			for (Object[] o1 : query1.getResultList()) {
+				listimg.add((String) o1[1]);
+			}
+			list.add(new Product((int) o[0], (String) o[3], new Categories((int) o[7]), (String) o[2], listimg,
+					(double) o[4], (boolean) o[1], (String) o[5], (int) o[6]));
+		}
+		return list;
+	}
+
 }

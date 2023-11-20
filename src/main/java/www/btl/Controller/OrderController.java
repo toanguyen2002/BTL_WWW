@@ -51,9 +51,9 @@ public class OrderController {
         return "view_order";
     }
     @RequestMapping("/getByUserID")
-    public String getOrdersByUserId(/*@RequestParam("userId") int userId,*/ Model model) {
+    public String getOrdersByUserId(@RequestParam("getOrder") int userId,Model model) {
         // Lấy danh sách đơn hàng từ cơ sở dữ liệu dựa trên ID của người dùng
-        List<Order> orders = orderDao.getAllOrderByUserID(1);
+        List<Order> orders = orderDao.getAllOrderByUserID(userId);
 
         model.addAttribute("orders", orders);
         return "list_order"; // Thay đổi tên trang JSP tương ứng
@@ -63,16 +63,23 @@ public class OrderController {
     public String getOrdersById(/*@RequestParam("id") int orderId,*/ Model model) {
         // Lấy danh sách đơn hàng từ cơ sở dữ liệu dựa trên ID của đơn hàng
         Order order = orderDao.getOrderByID(1);
-
+        System.out.println(order.getOrdetail());
         model.addAttribute("order", order);
         return "view_order";
+    }
+    @RequestMapping("/getByOrderID")
+    public String getOrderDetailDByOrderId(@RequestParam("id") int orderId, Model model) {
+        // Lấy danh sách đơn hàng từ cơ sở dữ liệu dựa trên ID của đơn hàng
+    	 List<OrderDetail> order = orderDao.getOrderDetailByOrderID(orderId);
+
+    
+      model.addAttribute("order", order);
+      System.out.println(order.get(0).getProducId().getListImage());
+        return "list-orderDetail";
     }
     
     @RequestMapping("/addOrder")
     private String addOrder() {
-    	
-    	
-    	
 		return null;
     	
     }

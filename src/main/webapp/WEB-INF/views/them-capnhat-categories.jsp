@@ -62,6 +62,9 @@ button:hover {
 	background-color: #0056b3;
 	border-color: #0056b3;
 }
+.red{
+	color:red
+}
 </style>
 </head>
 <body>
@@ -73,6 +76,7 @@ button:hover {
                 <div class="form-group">
                 	<label>NameCategories:</label>
                 	<form:input path="namecategories" cssClass="form-control"/>
+                	<form:errors path="namecategories" cssClass="red"/>
                 </div>
                 <button type="submit" class="btn btn-primary mt-5">Update Categories </button>
      
@@ -81,7 +85,9 @@ button:hover {
             <p>
                     <a href="${pageContext.request.contextPath}/categories/list">Back to List</a>
             </p>  
+            
     </div>
+    	<%@include file="/WEB-INF/views/footer.jsp"%>
     <!-- Bootstrap JS and dependencies -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

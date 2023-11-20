@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,16 +25,33 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Size(min = 3,message = "tối thiểu là 4 kí tự ")
-	@Size(max = 20,message = "không vượt quá 20 kí tự")
-	@NotNull(message = "Không rỗng")
-	@Pattern(regexp = "[A-Za-z0-9]",message = "username không chưa kí tự đặt biệt")
+	@Size(min = 3,message = "Tối thiểu 3 ký tự")
+	@Size(max = 20,message = "Tối đa 20 ký tự")
+//	@NotNull(message = "Không rỗng")
+//	@Pattern(regexp = "[A-Za-z0-9]",message = "username Không có ký tự đặc biệt")
 	private String username;
+	@NotNull
 	private String password;
-//	private boolean trangthai;
+	@NotNull
+	private String hoTen;
+	private String sdt;
 	public String role;
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
 	public Set<Order> order;
+	public User(int id, String username, String password, String hoTen, String sdt, String role, Set<Order> order) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.hoTen = hoTen;
+		this.sdt = sdt;
+		this.role = role;
+		this.order = order;
+	}
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}
@@ -54,6 +70,18 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getHoTen() {
+		return hoTen;
+	}
+	public void setHoTen(String hoTen) {
+		this.hoTen = hoTen;
+	}
+	public String getSdt() {
+		return sdt;
+	}
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
 	public String getRole() {
 		return role;
 	}
@@ -69,23 +97,12 @@ public class User implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public User(int id, String username, String password, String role, Set<Order> order) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.order = order;
-	}
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", order="
-				+ order + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", hoTen=" + hoTen + ", sdt="
+				+ sdt + ", role=" + role + ", order=" + order + "]";
 	}
+	
 
 	
 }

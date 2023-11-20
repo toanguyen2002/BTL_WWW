@@ -12,4 +12,5 @@ public interface ProductDao {
 	public List<Product> getAllProduct(int page); 
 	public List<Product> getNewProduct(int page); 
 	public List<Product> getSaleProduct(int page); 
+	public List<Product> getProductTheoNhieuTieuChi(String tieuchi); 
 }

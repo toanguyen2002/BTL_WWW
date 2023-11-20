@@ -69,6 +69,10 @@ button:hover {
 	background-color: #0056b3;
 	border-color: #0056b3;
 }
+
+.red {
+	color: red
+}
 </style>
 </head>
 
@@ -81,14 +85,16 @@ button:hover {
 			<!-- ID sẽ được tạo tự động, không cần nhập -->
 			<div class="form-group">
 				<label for="nameProduct">Tên Sản Phẩm:</label>
-				<form:input path="nameProduct" cssClass="form-control" />
+				<form:input path="nameProduct" cssClass="form-control " />
+					<form:errors path="nameProduct" cssClass="red"/>
 			</div>
+		
 
 			<div class="form-group">
-				<label for="categoryId">Danh Mục:</label>
-				 <select name="cateid">
+				<label for="categoryId">Danh Mục:</label> <select name="cateid">
 					<c:forEach items="${cate}" var="item">
-						<option value="${item.getIdCate()}" label="${item.getNamecategories()}">
+						<option value="${item.getIdCate()}"
+							label="${item.getNamecategories()}">
 					</c:forEach>
 				</select>
 			</div>
@@ -98,6 +104,7 @@ button:hover {
 			<div class="form-group">
 				<label for="motasp">Mô Tả:</label>
 				<form:textarea cssClass="form-control" path="motasp" />
+				<form:errors path="motasp" cssClass="red"/>
 			</div>
 
 			<div class="form-group">
@@ -106,24 +113,28 @@ button:hover {
 				<form:errors path="price" cssClass="form-control" />
 			</div>
 			<div class="form-group">
-				<label for="size">Kích Thước:</label> <input type="text"
-					class="form-control" id="size" name="size">
+				<label for="size">Kích Thước:</label> 
+	<!-- 			<input type="text"class="form-control" id="size" name="size"> -->
+				<form:input path="size" cssClass="form-control " />
+				<form:errors path="size" cssClass="red " />
+				
 			</div>
 
 			<div class="form-group">
-				<label for="soluong">Số Lượng:</label> <input type="number"
-					class="form-control" id="soluong" name="soluong">
+				<label for="soluong">Số Lượng:</label> 
+				<input type="number" class="form-control" id="soluong" name="soluong"  inputmode="numeric" pattern="^[1-9]*">
 			</div>
 			<div class="form-group">
 				<label for="soluong">ảnh sản phẩm:</label> <input type="file"
-					class="form-control" id="anhsp" name="anhsp" multiple="multiple">
+					class="form-control" id="anhsp" name="anhsp" multiple="multiple"
+					required="required" accept="image/png, image/jpeg, image/jpgg">
 			</div>
 
 			<button type="submit" class="btn btn-primary mt-5">Thêm Sản
 				Phẩm</button>
 		</form:form>
 	</div>
-
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 	<!-- Bootstrap JS and dependencies -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

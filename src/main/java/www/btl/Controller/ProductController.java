@@ -58,8 +58,16 @@ public class ProductController {
 		model.addAttribute("title", titlesp);
 		model.addAttribute("gtsp", gt);
 		model.addAttribute("numprd", num);
-		
+
 		return "danh-sach-san-pham";
+	}
+
+	@RequestMapping("/timkiemsanpham")
+	public String getDanhSachSanPhamTheoTieuChi(Model model, @RequestParam("tieuchi") String tieuchi, HttpSession ss) {
+		List<Product> listsp = productDao.getProductTheoNhieuTieuChi(tieuchi);
+		model.addAttribute("listSP", listsp);
+
+		return "ListProductTimKiem";
 	}
 
 	@RequestMapping("/danhsachsanphamPT")
@@ -107,36 +115,43 @@ public class ProductController {
 		modell.addAttribute("cate", ls);
 		return "them-san-pham";
 	}
+
 	@RequestMapping("/updateform")
-	public ModelAndView goFormupdatesp(Model nodel,@RequestParam("id") int id) {
+	public ModelAndView goFormupdatesp(Model nodel, @RequestParam("id") int id) {
 		System.out.println(productDao.getProductById(id));
-		List<Categories> ls = new ArrayList<Categories>();
-		ls.add(new Categories(1, "boy", null));
-		ls.add(new Categories(2, "girl", null));
-		ls.add(new Categories(3, "all", null));
+
+		List<Categories> ls = categoriesDao.getAllCategories();
+
 		nodel.addAttribute("cate", ls);
-		return new ModelAndView("update-san-pham","product",productDao.getProductById(id));
+		return new ModelAndView("update-san-pham", "product", productDao.getProductById(id));
 	}
+
 	@RequestMapping("/updateform/update")
-	public ModelAndView updatesp(@ModelAttribute("product") Product product
-			,@RequestParam("anhsp") List<CommonsMultipartFile> multipartFile
-			,HttpSession session,@RequestParam("cateid") int id
-			,@RequestParam("instock") boolean stock) throws IOException {
-		
+	public ModelAndView updatesp(@ModelAttribute("product") Product product,
+			@RequestParam("anhsp") List<CommonsMultipartFile> multipartFile, HttpSession session,
+			@RequestParam("cateid") int id, @RequestParam("instock") boolean stock) throws IOException {
+
 		Product p = productDao.getProductById(product.getIdProduct());
-		
-		System.out.println("chauw update: "+p);
-		if (p.getListImage().size() > 0) {
-			p.getListImage().clear();
-		}
+
 		ServletContext context = session.getServletContext();
 		List<String> arr = new ArrayList<String>();
+		System.out.println(multipartFile);
 		for (CommonsMultipartFile commonsMultipartFile : multipartFile) {
-			BufferedOutputStream fou = new BufferedOutputStream(new FileOutputStream(new File(context.getRealPath("/WEB-INF/assets") + File.separator + commonsMultipartFile.getOriginalFilename())));
-			fou.write(commonsMultipartFile.getBytes());
-			fou.flush();
-			fou.close();
-			arr.add(commonsMultipartFile.getOriginalFilename());
+			if (commonsMultipartFile.isEmpty()) {
+				arr = p.getListImage();
+			} else {
+				if (p.getListImage().size() > 0) {
+					p.getListImage().clear();
+				}
+				BufferedOutputStream fou = new BufferedOutputStream(
+						new FileOutputStream(new File(context.getRealPath("/WEB-INF/assets") + File.separator
+								+ commonsMultipartFile.getOriginalFilename())));
+				fou.write(commonsMultipartFile.getBytes());
+				fou.flush();
+				fou.close();
+				arr.add(commonsMultipartFile.getOriginalFilename());
+			}
+
 		}
 		p.setMotasp(product.getMotasp());
 		p.setNameProduct(product.getNameProduct());
@@ -148,23 +163,26 @@ public class ProductController {
 		p.setSoluong(product.getSoluong());
 		System.out.println(p);
 		productDao.update(p);
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/productController?num=0");
 	}
 
 	@RequestMapping("/addForm/add")
-	public String Themsp(Model modell, @Valid @ModelAttribute("product") Product product, 
-			BindingResult rs,
-			@RequestParam("anhsp") List<CommonsMultipartFile> file,
-			HttpSession session,@RequestParam("cateid") int id) throws IOException {
+	public String Themsp(Model modell, @Valid @ModelAttribute("product") Product product, BindingResult rs,
+			@RequestParam("anhsp") List<CommonsMultipartFile> file, HttpSession session, @RequestParam("cateid") int id)
+			throws IOException {
 		if (rs.hasErrors()) {
+			List<Categories> ls = categoriesDao.getAllCategories();
+			modell.addAttribute("cate", ls);
 			return "them-san-pham";
 		}
 		ArrayList<String> arr = new ArrayList<String>();
 		ServletContext context = session.getServletContext();
-		System.out.println(file.get(0).getOriginalFilename());
+//		System.out.println(file.get(0).getOriginalFilename());
 		for (CommonsMultipartFile commonsMultipartFile : file) {
 			System.out.println(commonsMultipartFile);
-			BufferedOutputStream fou = new BufferedOutputStream(new FileOutputStream(new File(context.getRealPath("/WEB-INF/assets") + File.separator + commonsMultipartFile.getOriginalFilename())));
+			BufferedOutputStream fou = new BufferedOutputStream(
+					new FileOutputStream(new File(context.getRealPath("/WEB-INF/assets") + File.separator
+							+ commonsMultipartFile.getOriginalFilename())));
 			fou.write(commonsMultipartFile.getBytes());
 			fou.flush();
 			fou.close();
@@ -175,48 +193,50 @@ public class ProductController {
 		product.setListImage(arr);
 		product.setInStock(true);
 		productDao.save(product);
-		return "redirect:/";
+		return "redirect:/productController?num=0";
 	}
 
 //	dsquanlisanpham?soTrang=2 &gt=${gtsp}
 	@RequestMapping("/dsquanlisanpham")
-	public String getQLsanPhamPT(@RequestParam("num") int sotrang,HttpSession session) {
+	public String getQLsanPhamPT(@RequestParam("num") int sotrang, HttpSession session) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
-		System.out.println("list: "+list);
+		System.out.println("list: " + list);
 		productDao.getAllProduct(sotrang);
 		return "redirect:/productController?num=" + sotrang;
 	}
-	///addCart?id=${sp.getIdProduct()}
+
+	/// addCart?id=${sp.getIdProduct()}
 	@RequestMapping("/addCart")
-	public String addCart(HttpSession session,@RequestParam("id") int idproduct,@RequestParam("quantity") int num) {
+	public String addCart(HttpSession session, @RequestParam("id") int idproduct, @RequestParam("quantity") int num) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		if (list == null) {
-		    list = new HashMap<Integer, Integer>();
+			list = new HashMap<Integer, Integer>();
 		}
 		if (list.containsKey(idproduct)) {
-		    list.put(idproduct, list.get(idproduct) + num);
-		}else {
-			 list.put(idproduct, num);
+			list.put(idproduct, list.get(idproduct) + num);
+		} else {
+			list.put(idproduct, num);
 		}
 
 		session.setAttribute("listOrderDetail", list);
-;
-		return "redirect:/";
+		;
+		return "redirect:/home";
 	}
+
 	@RequestMapping("/addCart1")
-	public String addCart1(HttpSession session,@RequestParam("id") int idproduct,@RequestParam("quantity") int num) {
+	public String addCart1(HttpSession session, @RequestParam("id") int idproduct, @RequestParam("quantity") int num) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		if (list == null) {
-		    list = new HashMap<Integer, Integer>();
+			list = new HashMap<Integer, Integer>();
 		}
 		if (list.containsKey(idproduct)) {
-		    list.put(idproduct, list.get(idproduct) + num);
-		}else {
-			 list.put(idproduct, num);
+			list.put(idproduct, list.get(idproduct) + num);
+		} else {
+			list.put(idproduct, num);
 		}
 
 		session.setAttribute("listOrderDetail", list);
-		
+
 		return "redirect:/danhsachsanpham?num=0&gt=all";
 	}
 }

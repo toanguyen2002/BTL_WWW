@@ -15,7 +15,7 @@
             <!-- Add more details as needed -->
         </p>
     </c:if>
-
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 
     <!-- Add more details as needed -->
 

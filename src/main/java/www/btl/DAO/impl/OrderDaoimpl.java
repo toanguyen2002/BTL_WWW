@@ -1,15 +1,20 @@
 package www.btl.DAO.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import www.btl.Entity.Order;
+import www.btl.Entity.OrderDetail;
 import www.btn.DAO.OrderDao;
+import www.btn.DAO.ProductDao;
 
 @Repository
 @Transactional
@@ -17,6 +22,8 @@ public class OrderDaoimpl implements OrderDao {
 
     @Autowired
     public SessionFactory factory;
+    @Autowired
+    ProductDao dao;
 
     @Override
     public void addOrder(Order order) {
@@ -70,5 +77,19 @@ public class OrderDaoimpl implements OrderDao {
 		// TODO Auto-generated method stub
 		Session session = factory.getCurrentSession();
 		return session.createQuery("FROM Order", Order.class).getResultList();
+	}
+
+	@Override
+	public List<OrderDetail> getOrderDetailByOrderID(int orderID) {
+		List<OrderDetail> oddt = new ArrayList<OrderDetail>();
+		OrderDetail od = null;
+		NativeQuery<Object[]> query = factory.getCurrentSession().createNativeQuery("SELECT * from order_items where order_id = "+ orderID);
+		for (Object[] o : query.getResultList()) {
+			System.out.println(o[1]);
+			od = new OrderDetail(dao.getProductById((int) o[4]), null, (int) o[2], (double) o[1]);
+			oddt.add(od);
+		}
+//		System.out.println(query.getResultList());
+		return oddt;
 	}
 }

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trang Chủ</title>
+<title>Danh Sách Sản Phẩm</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -33,37 +33,10 @@
 	
 	<!-- banner -->
 <!-- Wrap the carousel in a container to center it -->
-<div class="container">
-    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/WWW_BTL/assets/anh1.jpg" class="d-block w-100" alt="Banner 1">
-            </div>
-            <div class="carousel-item">
-                  <img src="/WWW_BTL/assets/anh2.jpg" class="d-block w-100" alt="Banner 1">
-            </div>
-             <div class="carousel-item">
-                  <img src="/WWW_BTL/assets/anh3.jpg" class="d-block w-100" alt="Banner 1">
-            </div>
-            <!-- Add more carousel items as needed -->
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
-
-
-
 	<!-- Content Container -->
 	<br>
 	<div class="container mt-10">
-		<h1 class="mb-4 mt-10">Hàng Mới</h1>
+		<h1 class="mb-4 mt-10">Sản Phẩm Bạn Cần Tìm</h1>
 		<div class="row">
 			<!-- Product Cards -->
 			<c:forEach items="${listSP}" var="sp">
@@ -118,6 +91,6 @@
 			</div>
 			<!-- Content below pagination goes here -->
 </div>
-	<%@include file="/WEB-INF/views/footer.jsp"%>
+		<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
