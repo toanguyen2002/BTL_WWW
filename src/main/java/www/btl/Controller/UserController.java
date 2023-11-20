@@ -33,15 +33,18 @@ public class UserController {
 	}
 
 	@GetMapping("/user/dangKy")
-	public String dangKy(@ModelAttribute("user") User user,Model theModel) {
-//		User user = new User();
-//		theModel.addAttribute("user", user);
+	public String dangKy(Model theModel) {
+		User user = new User();
+		theModel.addAttribute("user", user);
 		return "dang-ky-tai-khoan";
 	}
 
 	@PostMapping("/user/saveUser")
-	public String saveCustomer(@ModelAttribute("user") User user, HttpSession session,BindingResult bdrs) {
-		
+	public String saveCustomer(@Valid @ModelAttribute("user") User user,BindingResult bdrs, HttpSession session) {
+		if (bdrs.hasErrors()) {
+//			System.out.println("errêrêr");
+			  return "dang-ky-tai-khoan"; 
+		}
 	    try {
 	        userDaoimpl.saveUser(user);
 	    } catch (RuntimeException e) {
@@ -53,10 +56,7 @@ public class UserController {
 
 	        return "dang-ky-tai-khoan"; // Redirect đến trang đăng ký với thông báo lỗi
 	    }
-//	    if (bdrs.hasErrors()) {
-//			System.out.println("errêrêr");
-//			  return "dang-ky-tai-khoan"; 
-//		}
+	    
 	    return "dang-nhap"; // Nếu đăng ký thành công, chuyển hướng đến trang đăng nhập
 	}
 

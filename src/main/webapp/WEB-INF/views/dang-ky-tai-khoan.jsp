@@ -29,6 +29,11 @@
 		});
 	});
 </script>
+<style type="text/css">
+.red {
+	color: red
+}
+</style>
 </head>
 <body>
 	<% if (session.getAttribute("registrationError") != null) { %>
@@ -45,14 +50,14 @@
 			<div class="form-group">
 				<form:input class="form-control" path="username"
 					placeholder="Tên người dùng" />
-					<form:errors class="form-control" path="username"
+					<form:errors class="red" path="username"
 					 />
 			</div>
 			<br>
 			<div class="form-group">
 				<form:input class="form-control" path="hoTen"
 					placeholder="Họ và tên" />
-					<form:errors class="form-control" path="hoTen"
+					<form:errors class="red" path="hoTen"
 					 />
 					
 			</div>
@@ -60,18 +65,22 @@
 			<div class="form-group">
 				<form:input class="form-control" path="sdt"
 					placeholder="Số điện thoại" />
-					<form:errors class="form-control" path="sdt"
+					<form:errors class="red" path="sdt"
 					 />
 			</div>
 			<br>
 			<div class="form-group">
 				<form:input class="form-control" path="password" id="password"
 					placeholder="Mật khẩu" type="password" />
+					<form:errors class="red" path="password"
+					 />
 			</div>
 			<br>
 			<div class="form-group">
 				<form:input class="form-control" path="" id="confirmPassword"
 					placeholder="Xác nhận mật khẩu" type="password" />
+					<form:errors class="" path="password"
+					 />
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary">Đăng ký</button>
