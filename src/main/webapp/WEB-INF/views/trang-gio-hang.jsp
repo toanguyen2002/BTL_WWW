@@ -65,7 +65,7 @@
 		out.println("<h4>Tổng Số Tiền Là: "+total+"</h4>");
 		%>
 		<c:if test="${loginFailed == false}">
-			<h1 style="color: red;font-weight: bold;">Bạn phải đăng Nhập Trước Khi Thanh Toán</h1>
+			<h6 style="color: red;font-weight: bold;">Bạn phải đăng Nhập Trước Khi Thanh Toán</h6>
 		</c:if>
 	
 			

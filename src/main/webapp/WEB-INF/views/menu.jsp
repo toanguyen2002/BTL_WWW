@@ -100,6 +100,9 @@
 												href="/WWW_BTL/categories/list">Quản Lý Danh Mục</a></li>
 												<li><a class="dropdown-item"
 												href="/WWW_BTL/order/orderController">Quản Lý Hóa đơn</a></li>
+									
+												<li><a class="dropdown-item"
+												href="/WWW_BTL/thongke">Top 10 Sản Phẩm Được Bán Nhều Nhất</a></li>
 										<li><a class="dropdown-item" href="/WWW_BTL/user/logout">Đăng xuất</a></li>
 									</ul>
 								</c:when>

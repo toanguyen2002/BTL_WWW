@@ -57,6 +57,6 @@
 		</form:form>
 	</div>
 
-		<%@include file="/WEB-INF/views/footer.jsp"%>
+	
 </body>
 </html>

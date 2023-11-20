@@ -31,38 +31,53 @@
 </script>
 </head>
 <body>
-
+	<% if (session.getAttribute("registrationError") != null) { %>
+    <div class="alert alert-danger">
+        <%= session.getAttribute("registrationError") %>
+    </div>
+    <%-- Xóa thông báo lỗi sau khi đã hiển thị --%>
+    <% session.removeAttribute("registrationError"); %>
+<% } %>
 	<%@include file="/WEB-INF/views/menu.jsp"%>
 	<div class="container">
 		<h1 class="mt-5">Đăng ký tài khoản</h1>
-		<form:form modelAttribute="user" method="post" action="saveUser">
-			<div class="form-group mt-3">
+		<form:form modelAttribute="user" method="post"  action="saveUser">
+			<div class="form-group">
 				<form:input class="form-control" path="username"
 					placeholder="Tên người dùng" />
+					<form:errors class="form-control" path="username"
+					 />
 			</div>
-			<div class="form-group mt-3">
+			<br>
+			<div class="form-group">
 				<form:input class="form-control" path="hoTen"
 					placeholder="Họ và tên" />
+					<form:errors class="form-control" path="hoTen"
+					 />
+					
 			</div>
-			<div class="form-group mt-3">
+			<br>
+			<div class="form-group">
 				<form:input class="form-control" path="sdt"
 					placeholder="Số điện thoại" />
+					<form:errors class="form-control" path="sdt"
+					 />
 			</div>
-			<div class="form-group mt-3">
+			<br>
+			<div class="form-group">
 				<form:input class="form-control" path="password" id="password"
 					placeholder="Mật khẩu" type="password" />
 			</div>
-			<div class="form-group mt-3">
+			<br>
+			<div class="form-group">
 				<form:input class="form-control" path="" id="confirmPassword"
 					placeholder="Xác nhận mật khẩu" type="password" />
 			</div>
-
-		
-			<button type="submit" class="btn btn-primary mt-3">Đăng ký</button>
+			<br>
+			<button type="submit" class="btn btn-primary">Đăng ký</button>
 		</form:form>
 
 
 	</div>
-		<%-- <%@include file="/WEB-INF/views/footer.jsp"%> --%>
 </body>
 </html>

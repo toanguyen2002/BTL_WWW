@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,18 +33,33 @@ public class UserController {
 	}
 
 	@GetMapping("/user/dangKy")
-	public String dangKy(Model theModel) {
-		User user = new User();
-		theModel.addAttribute("user", user);
+	public String dangKy(@ModelAttribute("user") User user,Model theModel) {
+//		User user = new User();
+//		theModel.addAttribute("user", user);
 		return "dang-ky-tai-khoan";
 	}
 
 	@PostMapping("/user/saveUser")
-	public String saveCustomer(@ModelAttribute("user") User user) {
-		// save the customer using our service
-		userDaoimpl.saveUser(user);
-		return "dang-nhap";
+	public String saveCustomer(@ModelAttribute("user") User user, HttpSession session,BindingResult bdrs) {
+		
+	    try {
+	        userDaoimpl.saveUser(user);
+	    } catch (RuntimeException e) {
+	        // Đăng ký thất bại, tạo thông báo lỗi
+	        String errorMessage = "Đăng ký tài khoản không thành công do trùng tài kHoản Vui lòng thử lại.";
+
+	        // Lưu thông báo lỗi vào session
+	        session.setAttribute("registrationError", errorMessage);
+
+	        return "dang-ky-tai-khoan"; // Redirect đến trang đăng ký với thông báo lỗi
+	    }
+//	    if (bdrs.hasErrors()) {
+//			System.out.println("errêrêr");
+//			  return "dang-ky-tai-khoan"; 
+//		}
+	    return "dang-nhap"; // Nếu đăng ký thành công, chuyển hướng đến trang đăng nhập
 	}
+
 
 	@GetMapping("/user/dangNhap")
 	public String dangNhap(Model theModel) {

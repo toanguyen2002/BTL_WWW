@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import www.btl.Entity.Categories;
 import www.btl.Entity.Product;
+import www.btl.Entity.ThongKe;
 import www.btn.DAO.ProductDao;
 
 @Repository
@@ -35,7 +36,7 @@ public class ProductDaoimpl implements ProductDao {
 		List<Product> list = new ArrayList<>();
 
 		NativeQuery<Object[]> query = (NativeQuery<Object[]>) factory.getCurrentSession()
-				.createNativeQuery("SELECT *\n" + "FROM products\n" + "ORDER BY product_id\n" + "OFFSET " + page
+				.createNativeQuery("SELECT *\n" + "FROM products\n" + "ORDER BY inStock DESC\n" + "OFFSET " + page
 						+ " ROWS\n" + "FETCH NEXT 6 ROW ONLY;");
 
 		for (Object[] o : query.getResultList()) {
@@ -96,7 +97,7 @@ public class ProductDaoimpl implements ProductDao {
 		List<Product> list = new ArrayList<>();
 
 		NativeQuery<Object[]> query = (NativeQuery<Object[]>) factory.getCurrentSession()
-				.createNativeQuery("SELECT *\n" + "FROM products\n" + "ORDER BY product_id\n" + "OFFSET " + page
+				.createNativeQuery("SELECT *\n" + "FROM products\n" + "ORDER BY inStock DESC\n" + "OFFSET " + page
 						+ " ROWS\n" + "FETCH NEXT 6 ROW ONLY;");
 
 		for (Object[] o : query.getResultList()) {
@@ -157,6 +158,21 @@ public class ProductDaoimpl implements ProductDao {
 			}
 			list.add(new Product((int) o[0], (String) o[3], new Categories((int) o[7]), (String) o[2], listimg,
 					(double) o[4], (boolean) o[1], (String) o[5], (int) o[6]));
+		}
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public List<ThongKe> getTop10DuocBanNhieuNhat() {
+		List<ThongKe> list = new ArrayList<>();
+
+		NativeQuery<Object[]> query = (NativeQuery<Object[]>) factory.getCurrentSession().createNativeQuery(
+				"SELECT top 10 products.product_id,order_items.quantity,order_items.price FROM products INNER JOIN order_items on products.product_id = order_items.product_id \n"
+				+ "  GROUP by products.product_id,order_items.quantity,order_items.price order By quantity DESC");
+
+		for (Object[] o : query.getResultList()) {
+			list.add(new ThongKe(getProductById((int) o[0]), (int) o[1], (double) o[2]));
 		}
 		return list;
 	}

@@ -55,7 +55,7 @@
 		<nav aria-label="Page navigation">
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link"
-					href="/WWW_BTL/dsquanlisanpham?num=${numprd-1 < 0 ? 0 : numprd-1}"
+					href="/WWW_BTL/productController?num=${numprd-1 < 0 ? 0 : numprd-1}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 				<li class="page-item"><a class="page-link"

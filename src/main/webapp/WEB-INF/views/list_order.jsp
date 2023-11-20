@@ -54,7 +54,7 @@
             </c:forEach>
         </tbody>
     </table>
-    	<%@include file="/WEB-INF/views/footer.jsp"%>
+    	<%-- <%@include file="/WEB-INF/views/footer.jsp"%> --%>
 <!--     <a href="/WWW_BTL/order/getByUserID" class="btn btn-primary">Xem Order của user 1</a>
     <a href="/WWW_BTL/order/getByID" class="btn btn-primary">Xem Order có id = 1</a> -->
 </body>

@@ -97,14 +97,18 @@ public class ProductController {
 	@RequestMapping("/productController")
 	public String quanLySanPham(Model model, @RequestParam("num") int num, HttpSession ss) {
 		model.addAttribute("allsp", productDao.getAllProduct(num));
-		System.out.println(productDao.getAllProduct(num));
-		boolean sss = (boolean) ss.getAttribute("userSecurity");
+		model.addAttribute("numprd", num);
 		return "quan-li-san-pham";
+	}
+	@RequestMapping("/thongke")
+	public String TopProduct(Model model, HttpSession ss) {
+		System.out.println(productDao.getTop10DuocBanNhieuNhat());
+		model.addAttribute("listtk", productDao.getTop10DuocBanNhieuNhat());
+		return "thong-ke-san-pham";
 	}
 
 	@RequestMapping("/product")
 	public String xemChiTietSanPham(Model modell, @RequestParam("id") int id) {
-		System.out.println(productDao.getProductById(id));
 		modell.addAttribute("product", productDao.getProductById(id));
 		return "chi-tiet-san-pham";
 	}

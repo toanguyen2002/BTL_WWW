@@ -3,6 +3,7 @@ package www.btn.DAO;
 import java.util.List;
 
 import www.btl.Entity.Product;
+import www.btl.Entity.ThongKe;
 
 public interface ProductDao {
 	public Product getProductById(int id);
@@ -13,4 +14,5 @@ public interface ProductDao {
 	public List<Product> getNewProduct(int page); 
 	public List<Product> getSaleProduct(int page); 
 	public List<Product> getProductTheoNhieuTieuChi(String tieuchi); 
+	public List<ThongKe> getTop10DuocBanNhieuNhat(); 
 }

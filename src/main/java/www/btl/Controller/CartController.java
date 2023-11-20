@@ -35,8 +35,8 @@ public class CartController {
 	public String GioHang(Model model, HttpSession session) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		List<www.btl.Entity.GioHang> gioHnag = new ArrayList<>();
-		if (list == null) {
-
+		if (list == null ) {
+			return "redirect:/home";
 		}
 
 		list.entrySet().forEach(x -> {

@@ -25,15 +25,14 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Size(min = 3,message = "Tối thiểu 3 ký tự")
-	@Size(max = 20,message = "Tối đa 20 ký tự")
-//	@NotNull(message = "Không rỗng")
-//	@Pattern(regexp = "[A-Za-z0-9]",message = "username Không có ký tự đặc biệt")
+
+	@Pattern(regexp = "[A-Za-z0-9][A-Za-z0-9]+",message = "username Không có ký tự đặc biệt")
 	private String username;
 	@NotNull
 	private String password;
 	@NotNull
 	private String hoTen;
+	@Pattern(regexp = "^0[0-9]{9}",message = "số điện thoại bắt đầu từ số 0 có 10 số")
 	private String sdt;
 	public String role;
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
