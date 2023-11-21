@@ -8,9 +8,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +29,7 @@ import www.btl.Entity.Product;
 import www.btl.Entity.User;
 import www.btn.DAO.OrderDao;
 import www.btn.DAO.ProductDao;
+import www.btn.DAO.UserDao;
 
 @Controller
 public class CartController {
@@ -30,12 +38,16 @@ public class CartController {
 	ProductDao prodao;
 	@Autowired
 	OrderDao orderdao;
-
+	@Autowired
+	UserDao userdao;
+	@Autowired
+	private JavaMailSender mailSender;
 	@RequestMapping("/cart")
 	public String GioHang(Model model, HttpSession session) {
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		List<www.btl.Entity.GioHang> gioHnag = new ArrayList<>();
 		if (list == null ) {
+			  
 			return "redirect:/home";
 		}
 
@@ -63,6 +75,7 @@ public class CartController {
 		Set<OrderDetail> listod = new HashSet<OrderDetail>();
 		int id = (int) session.getAttribute("userId");
 		System.out.println("id: " + id);
+		User user = userdao.getUser(id);
 		Order o = new Order(LocalDate.now(), new User(id, null, null, null, null, null, null), null);
 		List<www.btl.Entity.GioHang> gioHnag = (List<www.btl.Entity.GioHang>) session.getAttribute("cart");
 		boolean loginFailed = (boolean) session.getAttribute("loginFailed");
@@ -85,8 +98,16 @@ public class CartController {
 		o.setOrdetail(listod);
 
 		orderdao.addOrder(o);
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getUsername());
+        message.setSubject("Mua Hàng Thành Công");
+        message.setText("Cảm Ơn bạn "+user.getHoTen()+" Đã mua Hàng Thành Công! Vui Lòng Kiểm Trả Hóa Đơn Trong Tài Khoản");
+
+        mailSender.send(message);
 		HashMap<Integer, Integer> list = (HashMap<Integer, Integer>) session.getAttribute("listOrderDetail");
 		list.clear();
+		
+
 		return "redirect:/home";
 	}
 }

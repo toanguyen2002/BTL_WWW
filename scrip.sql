@@ -110,14 +110,14 @@ VALUES (1, 'A cozy cardigan with a cable knit pattern', 'Cable Knit Cardigan', 5
 
 -- users
 SET IDENTITY_INSERT users ON;
-INSERT INTO users (id, password, role, username)
-VALUES (1, 123, 'user', 'sang');
-INSERT INTO users (id, password, role, username)
-VALUES (2, 123, 'user', 'trung');
-INSERT INTO users (id, password, role, username)
-VALUES (3, 123, 'admin', 'toan');
-INSERT INTO users (id, password, role, username)
-VALUES (4, 123, 'user', 'loc');
+INSERT INTO users (id, password, role, username, sdt, hoTen)
+VALUES (1, 123, 'user', 'sangvo0339958048@gmail.com', '0123574801', 'vo hoang minh sang');
+INSERT INTO users (id, password, role, username, sdt, hoTen)
+VALUES (2, 123, 'user', 'leqtrungggg3105@gmail.com', '0886574809', 'le quang trung');
+INSERT INTO users (id, password, role, username, sdt, hoTen)
+VALUES (3, 123, 'admin', 'toanguyen200220@gmail.com', '0987654321', 'nguyen quang toan');
+INSERT INTO users (id, password, role, username, sdt, hoTen)
+VALUES (4, 123, 'user', 'vohoangloc2002jan@gmail.com', '1234567890', 'vo hoang loc');
 SET IDENTITY_INSERT users OFF;
 
 SELECT * from orders

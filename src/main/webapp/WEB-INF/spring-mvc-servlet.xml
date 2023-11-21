@@ -64,4 +64,34 @@
 	
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="myTranSactionManager"/>
 	
+	
+
+	<!-- <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.host">smtp.gmail.com</prop>
+            <prop key="mail.smtp.port">587</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.smtp.user">toanguyen120921@gmail.com</prop>
+            <prop key="mail.smtp.password">pkyw ypxj uqrf qmno</prop>
+        </props>
+    </property>
+</bean> -->
+<!-- Define the JavaMailSender bean -->
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="toanguyen120921@gmail.com" />
+    <property name="password" value="pkyw ypxj uqrf qmno" />
+    
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+        </props>
+    </property>
+</bean>
+
+	
 	</beans>

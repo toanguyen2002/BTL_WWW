@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,7 +27,8 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Pattern(regexp = "[A-Za-z0-9][A-Za-z0-9]+",message = "username Không có ký tự đặc biệt")
+	@Column(columnDefinition = "nvarchar(255)")
+	@Pattern(regexp = "[A-Za-z0-9][A-Za-z0-9]+[@](gmail|yahoo)[.](com|vn)",message = "tài khoản là mail và không chứa các kí từ đặt biệt")
 	private String username;
 	@NotNull
 	private String password;
