@@ -104,12 +104,18 @@ public class UserController {
 
 	@PostMapping("/user/login")
 	public String login(@RequestParam("username") String username, @RequestParam("password") String password,
+						@Valid @ModelAttribute("user") User user,BindingResult rs,
 	                    HttpSession session, Model model) {
-	    System.out.println("Đã chạy vào đây");
+//		if (rs.hasErrors()) {
+//			return "dang-nhap";
+//		}
+		if (username.equals("") || password.equals("") ) {
+	    	return "dang-nhap";
+		}
 	    boolean isAdmin = userDaoimpl.isUserAdmin(username, password);
 	    boolean isLogin = userDaoimpl.isLogin(username, password);
 	    int id = userDaoimpl.getUserIdByUsernameAndPassword(username, password);
-	    
+
 	    // Kiểm tra kết quả truy vấn
 	    if (isAdmin && isLogin) {
 	        System.out.println("đăng nhập thành công và là admin");

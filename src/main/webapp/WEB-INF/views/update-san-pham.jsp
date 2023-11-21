@@ -66,6 +66,8 @@ button:hover {
 	background-color: #0056b3;
 	border-color: #0056b3;
 }
+.red{
+color: red}
 </style>
 </head>
 </head>
@@ -79,10 +81,12 @@ button:hover {
 			<div class="form-group">
 				<label for="nameProduct">ID Sản Phẩm:</label>
 				<form:input path="idProduct" readonly="true" cssClass="form-control" />
+				
 			</div>
 			<div class="form-group">
 				<label for="nameProduct">Tên Sản Phẩm:</label>
 				<form:input path="nameProduct" cssClass="form-control" />
+				<form:errors path="nameProduct" cssClass="red" />
 			</div>
 
 			 <div class="form-group">
@@ -99,16 +103,18 @@ button:hover {
 			<div class="form-group">
 				<label for="motasp">Mô Tả:</label>
 				<form:textarea cssClass="form-control" path="motasp" />
+				<form:errors path="motasp" cssClass="red" />
 			</div>
 
 			<div class="form-group">
 				<label for="price">Giá:</label>
 				<form:input path="price" cssClass="form-control" />
-				<form:errors path="price" cssClass="form-control" />
+				<form:errors path="price" cssClass="red" />
 			</div>
 			<div class="form-group">
 				<label for="size">Kích Thước:</label>
-				<form:input path="size"></form:input>
+				<form:input path="size" cssClass="form-control"/>
+				<form:errors path="size" cssClass="red" />
 			</div>
 			<div class="form-group">
 			<label for="nameProduct">Tình Trạng Mở bán Sản Phẩm: </label>
@@ -126,7 +132,8 @@ button:hover {
 
 			<div class="form-group">
 				<label for="soluong">Số Lượng:</label>
-				<form:input path="soluong"></form:input>
+				<form:input path="soluong" cssClass="form-control"/>
+					<form:errors path="soluong" cssClass="red" />
 			</div>
 			<div class="form-group">
 				<label class="form-control" for="anhsanpham">ảnh Sản Phẩm:</label>

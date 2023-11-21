@@ -54,6 +54,7 @@
 			<button type="submit" class="btn btn-primary">Sửa</button>
 		</form:form>
 	</div>
+	<br>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 	
 </body>

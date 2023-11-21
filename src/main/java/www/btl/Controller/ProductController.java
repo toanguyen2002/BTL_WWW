@@ -131,10 +131,15 @@ public class ProductController {
 	}
 
 	@RequestMapping("/updateform/update")
-	public ModelAndView updatesp(@ModelAttribute("product") Product product,
+	public ModelAndView updatesp(@Valid @ModelAttribute("product") Product product,BindingResult rs,
 			@RequestParam("anhsp") List<CommonsMultipartFile> multipartFile, HttpSession session,
+			Model model,
 			@RequestParam("cateid") int id, @RequestParam("instock") boolean stock) throws IOException {
-
+		if (rs.hasErrors()) {
+			List<Categories> ls = categoriesDao.getAllCategories();
+			model.addAttribute("cate", ls);
+			return new ModelAndView("update-san-pham");
+		}
 		Product p = productDao.getProductById(product.getIdProduct());
 
 		ServletContext context = session.getServletContext();

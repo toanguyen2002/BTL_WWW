@@ -26,11 +26,10 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@NotNull(message = "Không Rỗng")
 	@Column(columnDefinition = "nvarchar(255)")
 	@Pattern(regexp = "[A-Za-z0-9][A-Za-z0-9]+[@](gmail|yahoo)[.](com|vn)",message = "tài khoản là mail và không chứa các kí từ đặt biệt")
 	private String username;
-	@NotNull
 	private String password;
 	@NotNull
 	private String hoTen;

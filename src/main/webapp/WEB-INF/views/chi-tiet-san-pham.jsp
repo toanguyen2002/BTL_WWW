@@ -16,7 +16,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
+	<script>
+  // Function to show the modal and pass product details
+  function showQuantityModal(productId, productName) {
+    // Set the product details in the modal
+    document.getElementById('productModalTitle').innerHTML = productName;
+    document.getElementById('productIdInput').value = productId;
+
+    // Show the modal
+    $('#quantityModal').modal('show');
+  }
+</script>
 </head>
+
 <body>
 	<%@include file="/WEB-INF/views/menu.jsp"%>
 	<div class="container">
@@ -49,12 +61,41 @@
 				<c:if test="${product.inStock == false}">
 					<p style="color:red">Hết hàng</p>
 				</c:if>
-				<button class="btn btn-primary">Mua ngay</button>
+				<a href="#" data-bs-toggle="modal" data-bs-target="#quantityModal" onclick="showQuantityModal('${product.getIdProduct()}', '${product.getNameProduct()}')" class="btn btn-primary">Mua Ngay</a>
 			</div>
 		</div>
 	</div>
+<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="quantityModalLabel">
+							Nhập số lượng cho sản phẩm <span id="productModalTitle"></span>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- Add a form to enter quantity -->
+						<form action="/WWW_BTL/addCart" method="get">
+							<input type="hidden" name="id" id="productIdInput" value="">
+							<div class="form-group">
+								<label for="quantityInput">Số lượng:</label> <input
+									type="number" class="form-control" id="quantityInput"
+									name="quantity" required>
+							</div>
+							<br> <br>
+							<button type="submit" class="btn btn-primary mt-10">Thêm
+								vào giỏ hàng</button>
+						</form>
+					</div>
+				</div>
+			</div>
+</div>
 	<br>
 	<br>
-		<%@include file="/WEB-INF/views/footer.jsp"%>
+		 <%@include file="/WEB-INF/views/footer.jsp"%> 
 </body>
 </html>

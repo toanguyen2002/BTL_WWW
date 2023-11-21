@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -15,6 +16,11 @@
 	crossorigin="anonymous"></script>
 <title>Đăng Nhập</title>
 <!-- Add necessary CSS and JavaScript references here -->
+<style>
+.red{
+color: red;
+}
+</style>
 
 </head>
 <body>
@@ -47,11 +53,12 @@
                 <label for="username"><i class="fas fa-user"></i> Username:</label>
               	<form:input class="form-control" path="username"
 					placeholder="Tên người dùng"/>
+						<form:errors cssClass="red" path="username"/>
               </div>
               <div class="form-group">
                 <label for="password"><i class="fas fa-lock"></i> Password:</label>
-                <form:input class="form-control" path="password"
-					placeholder="Mật khẩu" />
+                <form:input class="form-control" path="password" placeholder="Mật khẩu" />
+				<form:errors cssClass="red" path="password"/>
               </div>
               <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form:form>
